@@ -1,0 +1,10 @@
+# Top level dependencies list
+
+bcrypt
+fastapi
+passlib
+pyjwt
+python-dotenv
+python-multipart
+uvicorn
+gunicorn
