@@ -4,7 +4,8 @@ Class definition for BlackList token.
 
 # Importing Dependencies
 from sqlalchemy import Column, String, Integer
-from core.database import Base
+
+from backend.core.database import Base
 
 
 # Model Class Definition

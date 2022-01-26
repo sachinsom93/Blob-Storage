@@ -4,11 +4,12 @@
 
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
-from schema import user
-from utils.get_db import get_db
-from utils.user import create_user, get_user, get_user_by_email
+from backend.schema import user
+from backend.utils.get_db import get_db
+from backend.decorators.auth import verify_token
+from backend.utils.user import create_user, get_user, get_user_by_email
 
 
 
@@ -47,8 +48,11 @@ async def authenticate_user(user: user.AuthUser, db: Session = Depends(get_db)):
         }
         return JSONResponse(content=res)
     except Exception as e:
-        print(e)
-        raise HTTPException(status_code=500, detail="Something went wrong")
+        raise HTTPException(status_code=500, detail=e)
 
+
+@auth_router.get('/profile', dependencies=[Depends(verify_token)])
+async def temp():
+    return {"message": "hello"}
 
 

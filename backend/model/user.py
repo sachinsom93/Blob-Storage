@@ -3,15 +3,15 @@ Class definition for Base User Model.
 """
 
 # Importing Dependencies
-import email
 import jwt
 import bcrypt
-from core import config
 from sqlalchemy import Column, Integer, String
-from core.database import Base
-from utils.result import Result
 from datetime import datetime, timezone, timedelta
-from model.token_blacklist import BlacklistedToken
+
+from backend.core import config
+from backend.core.database import Base
+from backend.utils.result import Result
+from backend.model.token_blacklist import BlacklistedToken
 
 
 # Model Class Definition

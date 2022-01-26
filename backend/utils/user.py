@@ -3,8 +3,8 @@
 """
 
 from sqlalchemy.orm import Session
-from model.user import User as UserModel
-from schema.user import CreateUser
+from backend.model.user import User as UserModel
+from backend.schema.user import CreateUser
 
 
 def get_user(db: Session, user_id: int):

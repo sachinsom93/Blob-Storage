@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from model import user, token_blacklist
-from core.database import engine
-from rourtes.auth import auth_router
+from backend.model import user, token_blacklist
+from backend.core.database import engine
+from backend.routes.auth import auth_router
 
 # Application instance
 app = FastAPI()

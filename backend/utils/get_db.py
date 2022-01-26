@@ -2,7 +2,7 @@
     DB dependencies.
 """
 
-from core.database import SessionLocal
+from backend.core.database import SessionLocal
 
 def get_db():
     db = SessionLocal()
