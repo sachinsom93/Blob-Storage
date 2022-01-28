@@ -4,7 +4,7 @@
 
 from sqlalchemy.orm import Session
 from fastapi.responses import JSONResponse
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException
 
 from backend.schema import user
 from backend.utils.get_db import get_db
