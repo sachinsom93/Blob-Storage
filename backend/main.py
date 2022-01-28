@@ -4,6 +4,7 @@ from starlette.middleware.cors import CORSMiddleware
 from backend.model import user, token_blacklist
 from backend.core.database import engine
 from backend.routes.auth import auth_router
+from backend.routes.blob import blob_router
 
 # Application instance
 app = FastAPI()
@@ -24,3 +25,4 @@ token_blacklist.Base.metadata.create_all(bind=engine)
 
 # Register Routes
 app.include_router(auth_router, prefix="/api/v1/user")
+app.include_router(blob_router, prefix="/api/v1/blob")
