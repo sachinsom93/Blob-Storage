@@ -5,6 +5,7 @@
 from sqlalchemy.orm import Session
 from backend.model.user import User as UserModel
 from backend.schema.user import CreateUser
+from backend.utils.crypto import create_key
 
 
 def get_user(db: Session, user_id: int):
@@ -20,7 +21,8 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 
 def create_user(db: Session, user: CreateUser):
-    db_user = UserModel(name=user.name, email=user.email, password=user.password)
+    key = create_key() # Creates random key
+    db_user = UserModel(name=user.name, email=user.email, password=user.password, key=key)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)

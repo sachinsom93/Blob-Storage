@@ -5,7 +5,7 @@ Class definition for Base User Model.
 # Importing Dependencies
 import jwt
 import bcrypt
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, LargeBinary, null
 from datetime import datetime, timezone, timedelta
 
 from backend.core import config
@@ -22,17 +22,19 @@ class User(Base):
     __tablename__="User"
     # Properties Declaration
     id = Column(Integer, primary_key=True, autoincrement=True)
+    key = Column(LargeBinary, nullable=False, unique=True)
     name = Column(String(255), nullable=False, unique=False)
     email = Column(String(255), nullable=False, unique=True)
     password_hash = Column(String(255), nullable=False)
 
-    def __init__(self, name, email, password):
+    def __init__(self, name, email, password, key):
         """
         Constructor for base user model.
         """
         self.name = name
         self.email = email
         self.password = password
+        self.key = key
 
     @property
     def password(self):
