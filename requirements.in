@@ -1,6 +1,7 @@
 # Top level dependencies list
 
 bcrypt
+cryptography
 fastapi
 passlib
 pyjwt

@@ -11,11 +11,15 @@ asgiref==3.5.0
 bcrypt==3.2.0
     # via -r requirements.in
 cffi==1.15.0
-    # via bcrypt
+    # via
+    #   bcrypt
+    #   cryptography
 click==8.0.3
     # via uvicorn
 colorama==0.4.4
     # via click
+cryptography==36.0.1
+    # via -r requirements.in
 fastapi==0.73.0
     # via -r requirements.in
 greenlet==1.1.2
