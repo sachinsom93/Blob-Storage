@@ -1,4 +1,5 @@
 import os
+from sqlite3 import IntegrityError
 from sqlalchemy.orm import Session
 from fastapi import UploadFile, APIRouter, Depends, HTTPException
 from backend.dependencies.auth import get_current_user
@@ -6,7 +7,7 @@ from backend.dependencies.auth import get_current_user
 from backend.utils.get_db import get_db
 from backend.schema.user import User
 from backend.utils.io_helper import write_to_file
-from backend.utils.user import get_user_by_email
+from backend.utils.user import get_user_by_email, save_blob
 
 
 blob_router = APIRouter()
@@ -33,6 +34,14 @@ async def upload_blob(new_file: UploadFile, current_user: User = Depends(get_cur
 
     # Write encrypted data to file
     if(write_to_file(filepath, contents, db_user.key)):
+
+        # Store file url to database
+        await save_blob(db=db, blob_url=filepath, user=current_user)
         return { "file": new_file.filename }
 
     HTTPException(status_code=500, detail="Internal Server Error")
+
+
+
+# @blob_router("/files")
+# async def file_list(current_user: User = Depends(get_current_user)):

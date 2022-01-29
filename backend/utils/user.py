@@ -2,10 +2,14 @@
     Utility Functions for User CRUD.
 """
 
+from fastapi import HTTPException
+from sqlite3 import IntegrityError
 from sqlalchemy.orm import Session
-from backend.model.user import User as UserModel
-from backend.schema.user import CreateUser
+
+from backend.model.blob import Blob
+from backend.schema.user import CreateUser, User
 from backend.utils.crypto import create_key
+from backend.model.user import User as UserModel
 
 
 def get_user(db: Session, user_id: int):
@@ -18,6 +22,21 @@ def get_user_by_email(db: Session, email: str):
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(UserModel).offset(skip).limit(limit).all()
+
+
+async def save_blob(db: Session, blob_url: str, user: User):
+    try:
+        blob = Blob(blob_url=blob_url, user=user)
+        db.add(blob)
+        db.commit()
+        db.refresh(blob)
+        return blob
+    except IntegrityError as e:
+        print(e)
+        raise HTTPException(status_code=404, detail="Already Exists file.")
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=404, detail="Already Exists file.")
 
 
 def create_user(db: Session, user: CreateUser):

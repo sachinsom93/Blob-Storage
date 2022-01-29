@@ -7,6 +7,7 @@ class User(UserBase):
     id: int
     name: str
     password: str
+    key: str
 
 class CreateUser(UserBase):
     name: str
