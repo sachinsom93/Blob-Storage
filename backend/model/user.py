@@ -5,7 +5,8 @@ Class definition for Base User Model.
 # Importing Dependencies
 import jwt
 import bcrypt
-from sqlalchemy import Column, Integer, String, LargeBinary, null
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, LargeBinary, ForeignKey
 from datetime import datetime, timezone, timedelta
 
 from backend.core import config
@@ -26,6 +27,7 @@ class User(Base):
     name = Column(String(255), nullable=False, unique=False)
     email = Column(String(255), nullable=False, unique=True)
     password_hash = Column(String(255), nullable=False)
+    blob = relationship("Blob", back_populates="user")
 
     def __init__(self, name, email, password, key):
         """
@@ -63,7 +65,7 @@ class User(Base):
         Official way of representing user in db.
         """
         return (
-            f"<User email={self.email}, public_id={self.public_id}"
+            f"<User email={self.email}, public_id={self.id}"
         )
 
 

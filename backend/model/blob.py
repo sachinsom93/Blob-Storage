@@ -3,7 +3,8 @@ Class definition for Blob.
 """
 
 # Importing Dependencies
-from sqlalchemy import Column, String, Integer
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, Integer, ForeignKey
 
 from backend.core.database import Base
 
@@ -14,12 +15,15 @@ class Blob(Base):
 
     # Property Declaration
     id = Column(Integer, primary_key=True, autoincrement=True)
-    filepath = Column(String, nullable=False)
+    blob_url = Column(String, nullable=False, unique=True)
+    user_id = Column(Integer, ForeignKey("User.id"))
+    user = relationship("User", back_populates="blob")
 
     # Initialize Token
-    def __init__(self, filepath):
+    def __init__(self, blob_url, user):
         """
         Constructor for BlackListedToken Model Class.
         """
-        self.filepath = filepath
+        self.blob_url = blob_url
+        self.user = user
 
