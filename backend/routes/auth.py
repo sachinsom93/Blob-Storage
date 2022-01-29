@@ -2,14 +2,15 @@
     Router for user authentication.
 """
 
+import email
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 
-from backend.schema import user
 from backend.schema.token import Token
 from backend.utils.get_db import get_db
 from backend.dependencies.auth import get_current_user
+from backend.schema.user import UserResponse, CreateUser, User
 from backend.utils.user import create_user, get_user_by_email
 
 
@@ -17,20 +18,18 @@ from backend.utils.user import create_user, get_user_by_email
 auth_router = APIRouter()
 
 
-@auth_router.post('/create', response_class=user.UserResponse)
-async def create_new_user(user: user.CreateUser, db: Session = Depends(get_db)):
+@auth_router.post('/create')
+async def create_new_user(user: CreateUser, db: Session = Depends(get_db)):
     old_user = get_user_by_email(db, email=user.email)
     if(old_user):
         return HTTPException(status_code=400, detail="Email already registered.")
     new_user = create_user(db, user)
-    return {
-        "message": "User Created",
-        "email": new_user.email
-    }
+    return UserResponse(email=new_user.email)
+
 
 
 @auth_router.get("/profile")
-def read_user(current_user: user.User = Depends(get_current_user)):
+def read_user(current_user: User = Depends(get_current_user)):
     return {
         "email": current_user.email,
         "name": current_user.name

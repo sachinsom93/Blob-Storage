@@ -10,3 +10,4 @@ python-multipart
 uvicorn
 gunicorn
 sqlalchemy
+pydantic[email]
