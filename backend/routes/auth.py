@@ -3,12 +3,12 @@
 """
 
 from sqlalchemy.orm import Session
-from fastapi.responses import JSONResponse
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
 
 from backend.schema import user
+from backend.schema.token import Token
 from backend.utils.get_db import get_db
-from backend.decorators.auth import verify_token
 from backend.utils.user import create_user, get_user, get_user_by_email
 
 
@@ -32,27 +32,18 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@auth_router.post('/authenticate')
-async def authenticate_user(user: user.AuthUser, db: Session = Depends(get_db)):
-    db_user = get_user_by_email(db, email=user.email)
+@auth_router.post('/authenticate', response_model=Token)
+async def authenticate_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    db_user = get_user_by_email(db, email=form_data.username)
     if not db_user:
         raise HTTPException(status_code=404, detail="Email or password invalid.")
-    if not db_user.check_password(password=user.password):
+    if not db_user.check_password(password=form_data.password):
         raise HTTPException(status_code=406, detail="Email or password invalid.")
     try:
-        token = db_user.encode_access_token()
-        res =  {
-            "status_code": 200,
-            "message": "User authenticated.",
-            "token": token
-        }
-        return JSONResponse(content=res)
+        access_token = db_user.encode_access_token()
+        return {"access_token": access_token, "token_type": "bearer"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=e)
 
-
-@auth_router.get('/profile', dependencies=[Depends(verify_token)])
-async def temp():
-    return {"message": "hello"}
 
 

@@ -119,9 +119,9 @@ class User(Base):
             error = "Invalid token. Please  log in again."
             return Result.Fail(error_message=error)
 
-        if BlacklistedToken.check_blacklist(access_token):
-            error = "Token blacklisted. Please try to log in again."
-            return Result.Fail(error_message=error)
+        # if BlacklistedToken.check_blacklist(access_token):
+        #     error = "Token blacklisted. Please try to log in again."
+        #     return Result.Fail(error_message=error)
 
         # Following keys would be accessible
         # to decorated functinos
