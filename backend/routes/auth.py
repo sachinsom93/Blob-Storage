@@ -9,27 +9,32 @@ from fastapi.security import OAuth2PasswordRequestForm
 from backend.schema import user
 from backend.schema.token import Token
 from backend.utils.get_db import get_db
-from backend.utils.user import create_user, get_user, get_user_by_email
+from backend.dependencies.auth import get_current_user
+from backend.utils.user import create_user, get_user_by_email
 
 
 
 auth_router = APIRouter()
 
 
-@auth_router.post('/create')
+@auth_router.post('/create', response_class=user.UserResponse)
 async def create_new_user(user: user.CreateUser, db: Session = Depends(get_db)):
     old_user = get_user_by_email(db, email=user.email)
     if(old_user):
         return HTTPException(status_code=400, detail="Email already registered.")
-    return create_user(db, user)
+    new_user = create_user(db, user)
+    return {
+        "message": "User Created",
+        "email": new_user.email
+    }
 
 
-@auth_router.get("/{user_id}")
-def read_user(user_id: int, db: Session = Depends(get_db)):
-    db_user = get_user(db, user_id=user_id)
-    if db_user is None:
-        raise HTTPException(status_code=404, detail="User not found.")
-    return db_user
+@auth_router.get("/profile")
+def read_user(current_user: user.User = Depends(get_current_user)):
+    return {
+        "email": current_user.email,
+        "name": current_user.name
+    }
 
 
 @auth_router.post('/authenticate', response_model=Token)
