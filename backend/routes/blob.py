@@ -70,7 +70,7 @@ async def downlaod_blob(file_id: int, current_user: User = Depends(get_current_u
 
 
 
-@blob_router.put("/rename")
+@blob_router.patch("/rename")
 async def rename_blob(request: BlobRename, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
 
     # Get Blob Object
