@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import FileList from '../components/FileList';
 import FileUpload from '../components/FileUpload';
 import { loadUser } from '../store/actions/auth';
+import { loadFiles } from '../store/actions/file';
 
 function File() {
 
@@ -10,7 +12,10 @@ function File() {
     const auth = useSelector(state => state.authReducer);
     const navigate = useNavigate();
 
-    useEffect(() => {dispatch(loadUser())}, [dispatch]);
+    useEffect(() => {
+        dispatch(loadUser())
+        dispatch(loadFiles())
+    }, [dispatch]);
 
     if(auth && !auth.isAuthenticated) {
         navigate("/");
@@ -26,6 +31,7 @@ function File() {
         }}
         >
             <FileUpload />
+            <FileList />
         </div>
     );
 }

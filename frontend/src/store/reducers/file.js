@@ -1,4 +1,4 @@
-import { FILE_LOAD, FILE_LOAD_ERROR, FILE_LOAD_SUCCESS, FILE_UPLOAD, FILE_UPLOAD_ERROR, FILE_UPLOAD_SUCCESS } from '../types/file';
+import { FILE_DELETE, FILE_DELETE_ERROR, FILE_DELETE_SUCCESS, FILE_LOAD, FILE_LOAD_ERROR, FILE_LOAD_SUCCESS, FILE_UPLOAD, FILE_UPLOAD_ERROR, FILE_UPLOAD_SUCCESS } from '../types/file';
 
 
 
@@ -12,6 +12,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
     switch (type) {
         case FILE_UPLOAD:
         case FILE_LOAD:
+        case FILE_DELETE:
             return {
                 ...state,
                 isLoading: true
@@ -19,6 +20,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
 
         case FILE_UPLOAD_ERROR:
         case FILE_LOAD_ERROR:
+        case FILE_DELETE_ERROR:
             return {
                 ...state,
                 isLoading: false,
@@ -38,6 +40,11 @@ export const fileReducer = (state = initialState, {type, payload}) => {
                 files: payload.data.files
             }
 
+        case FILE_DELETE_SUCCESS:
+            return {
+                ...state,
+                isLoading: false
+            }
         default:
             return state;
     }

@@ -1,9 +1,9 @@
 {
   "name": "frontend",
-  "homepage": "https://sachinsom93.github.io/Blob-Storage-Server-Cloudwiry-Hackathon-2022",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fluentui/react-icons-northstar": "^0.60.1",
     "@fluentui/react-northstar": "^0.60.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

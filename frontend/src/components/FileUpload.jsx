@@ -14,6 +14,8 @@ function FileUpload() {
                 height: "35vh",
                 boxShadow: '10px 10px 50px 60px #f8f8f8',
                 borderRadius: '10px',
+                marginRight: "10vw",
+                boxSizing: 'border-box'
             }}
             onSubmit={(e) => dispatch(uploadFile(file))}
         >
