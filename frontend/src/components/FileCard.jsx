@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, Flex } from '@fluentui/react-northstar'
 import { EditIcon, DownloadIcon, CloseIcon } from '@fluentui/react-icons-northstar'
 import { useDispatch  } from 'react-redux';
-import { deleteFile, renameFile } from '../store/actions/file';
+import { deleteFile, downloadFile, renameFile } from '../store/actions/file';
 
 const FileCard = ({file}) => {
 
@@ -23,6 +23,11 @@ const FileCard = ({file}) => {
         dispatch(renameFile(fileID, newName));
     }
 
+    // Function to handle file downloading
+    function handleDownloadClick(fileID, fileName) {
+        dispatch(downloadFile(fileID, fileName))
+    }
+
     return (
         <Card aria-roledescription="card with action buttons">
             <Card.Footer fitted>
@@ -30,7 +35,7 @@ const FileCard = ({file}) => {
                 <Button content={file.blob_name}/>
                 <Flex>
                     <Button icon={<EditIcon />} iconOnly text title="Edit" onClick={() => handleEditClick(file.id)}/>
-                    <Button icon={<DownloadIcon />} iconOnly text title="Download" />
+                    <Button icon={<DownloadIcon />} iconOnly text title="Download" onClick={() => handleDownloadClick(file.id, file.blob_name)} />
                     <Button icon={<CloseIcon />} iconOnly text title="Close" onClick={() => handleCloseClick(file.id, file.blob_name)}/>
                 </Flex>
                 </Flex>

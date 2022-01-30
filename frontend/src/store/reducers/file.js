@@ -2,6 +2,9 @@ import {
     FILE_DELETE,
     FILE_DELETE_ERROR,
     FILE_DELETE_SUCCESS,
+    FILE_DOWNLOAD,
+    FILE_DOWNLOAD_ERROR,
+    FILE_DOWNLOAD_SUCCESS,
     FILE_LOAD,
     FILE_LOAD_ERROR,
     FILE_LOAD_SUCCESS,
@@ -27,6 +30,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
         case FILE_LOAD:
         case FILE_DELETE:
         case FILE_RENAME:
+        case FILE_DOWNLOAD:
             return {
                 ...state,
                 isLoading: true
@@ -36,6 +40,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
         case FILE_LOAD_ERROR:
         case FILE_DELETE_ERROR:
         case FILE_RENAME_ERROR:
+        case FILE_DOWNLOAD_ERROR:
             return {
                 ...state,
                 isLoading: false,
@@ -52,6 +57,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
         case FILE_DELETE_SUCCESS:
         case FILE_RENAME_SUCCESS:
         case FILE_UPLOAD_SUCCESS:
+        case FILE_DOWNLOAD_SUCCESS:
             return {
                 ...state,
                 isLoading: false
