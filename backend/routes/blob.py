@@ -10,7 +10,7 @@ from backend.schema.user import User
 from backend.dependencies.auth import get_current_user
 from backend.utils.io_helper import read_from_file, write_to_file
 from backend.utils.user import get_user_by_email
-from backend.utils.blob import get_blob, rename_blob_obj, save_blob
+from backend.utils.blob import delete_blob_obj, get_blob, rename_blob_obj, save_blob
 
 
 blob_router = APIRouter()
@@ -41,7 +41,7 @@ async def upload_blob(new_file: UploadFile, current_user: User = Depends(get_cur
             content_type=new_file.content_type,
             user=current_user
         )
-        return { "file": new_file.filename }
+        return { "success": True, "file": new_file.filename }
 
     HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -90,8 +90,31 @@ async def rename_blob(request: BlobRename, current_user: User = Depends(get_curr
         )
 
         return {
+            "success": True,
             "message": "File Renamed.",
             "file": updated_blob
+        }
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Something Went Wrong.")
+
+
+@blob_router.delete("/delete/{file_id}")
+async def delete_blob(file_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    # Get Blob Object
+    blob_obj = get_blob(current_user, file_id)
+
+    try:
+        # Rename Blob Object
+        await delete_blob_obj(
+            db=db,
+            blob=blob_obj,
+            user=current_user
+        )
+        return {
+            "success": True,
+            "message": "File Deleted.",
         }
     except Exception as e:
         print(e)

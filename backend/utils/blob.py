@@ -65,3 +65,20 @@ async def rename_blob_obj(db: Session, new_blob_name: str, new_blob_path: str, b
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail=e)
+
+
+async def delete_blob_obj(db: Session, blob: BlobSchema, user: User):
+    """
+    Deletes a blob object of given blob object.
+    """
+    try:
+        # Delete On-disk blob
+        os.remove(blob.blob_url)
+
+        # Delete db blob
+        db.delete(blob)
+        db.commit()
+
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail=e)
