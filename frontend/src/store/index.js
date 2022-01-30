@@ -7,6 +7,7 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 
 import { authReducer } from './reducers/auth';
 import { alertReducer } from './reducers/alert';
+import { fileReducer } from './reducers/file';
 
 // Middlewares
 const middlewares = [thunk]
@@ -14,7 +15,8 @@ const middlewares = [thunk]
 // Root Reducer
 const rootReducer = combineReducers({
     authReducer: authReducer,
-    alertReducer: alertReducer
+    alertReducer: alertReducer,
+    fileReducer: fileReducer
 })
 
 

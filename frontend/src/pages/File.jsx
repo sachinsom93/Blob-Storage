@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import FileUpload from '../components/FileUpload';
 import { loadUser } from '../store/actions/auth';
 
 function File() {
@@ -18,10 +19,13 @@ function File() {
         <div
         style={{
             width: '100vw',
-            height: '100vh'
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center'
         }}
         >
-            <h1>Welcome</h1>
+            <FileUpload />
         </div>
     );
 }
