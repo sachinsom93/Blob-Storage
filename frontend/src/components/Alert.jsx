@@ -12,6 +12,7 @@ const AlertCom = () => {
 
     return <>{alerts.map(alert => (
         <Alert
+            style={{width: '100vw', height: '5vh',position: 'fixed'}}
             content={alert.msg}
             key={alert.id}
             success={alert.type === "success" ? true : false}

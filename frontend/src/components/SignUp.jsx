@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Form, FormInput, FormButton, Header } from '@fluentui/react-northstar';
 import { signUp } from '../store/actions/auth';
 
