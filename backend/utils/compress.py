@@ -6,7 +6,7 @@ def compresss_file_content(data):
     compressed data.
     """
     print("Before Compression: ", sys.getsizeof(data))
-    compressed_data =  bz2.compress(data, zlib.Z_BEST_COMPRESSION)
+    compressed_data =  zlib.compress(data, zlib.Z_BEST_COMPRESSION)
     print("After Compression: ", sys.getsizeof(compressed_data))
     return compressed_data
 

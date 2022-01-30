@@ -54,7 +54,7 @@ def create_user(db: Session, user: CreateUser):
     db.refresh(db_user)
     return db_user
 
-def get_blob_url(current_user: User, blob_id: int):
+def get_blob(current_user: User, blob_id: int):
     blobs = current_user.blob
     blob = list(filter(lambda b: b.id == blob_id, blobs))
     if(len(blob) != 1):

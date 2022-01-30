@@ -1,5 +1,5 @@
-from backend.utils.compress import compresss_file_content
-from backend.utils.crypto import encrypt_file
+from backend.utils.compress import compresss_file_content, decompress_file_content
+from backend.utils.crypto import decrypt_file, encrypt_file
 
 
 def write_to_file(filename, content, key):
@@ -13,3 +13,16 @@ def write_to_file(filename, content, key):
         print(e)
         return False
     return True
+
+def read_from_file(filename, key):
+    try:
+        with open(filename, 'rb') as f:
+            data = f.read()
+            print(type(data))
+            decompressed_data = decompress_file_content(data) # Decompression
+            decrypted_data = decrypt_file(decompressed_data, key) # Decryption
+            f.close()
+    except Exception as e:
+        print(e)
+        return False
+    return decrypted_data
