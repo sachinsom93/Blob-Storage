@@ -3,12 +3,14 @@ import os
 from sqlalchemy.orm import Session
 from fastapi.responses import StreamingResponse
 from fastapi import UploadFile, APIRouter, Depends, HTTPException
+from backend.schema.blob import BlobRename
 
 from backend.utils.get_db import get_db
 from backend.schema.user import User
 from backend.dependencies.auth import get_current_user
 from backend.utils.io_helper import read_from_file, write_to_file
-from backend.utils.user import get_blob, get_user_by_email, save_blob
+from backend.utils.user import get_user_by_email
+from backend.utils.blob import get_blob, rename_blob_obj, save_blob
 
 
 blob_router = APIRouter()
@@ -62,6 +64,35 @@ async def downlaod_blob(file_id: int, current_user: User = Depends(get_current_u
         # Stream the blob content
         return StreamingResponse(io.BytesIO(blob_content), media_type=blob_obj.content_type)
 
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Something Went Wrong.")
+
+
+
+@blob_router.put("/rename")
+async def rename_blob(request: BlobRename, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    # Get Blob Object
+    blob_obj = get_blob(current_user, request.id)
+
+    # Updated Blob Path
+    blob_path =  f"{base}/data/{current_user.email}/{request.new_blob_name}"
+
+    try:
+        # Rename Blob Object
+        updated_blob = await rename_blob_obj(
+            db=db,
+            new_blob_name=request.new_blob_name,
+            blob=blob_obj,
+            new_blob_path=blob_path,
+            user=current_user
+        )
+
+        return {
+            "message": "File Renamed.",
+            "file": updated_blob
+        }
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Something Went Wrong.")
