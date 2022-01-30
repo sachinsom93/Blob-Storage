@@ -18,7 +18,7 @@ import {
   USER_LOADING_PROCESS,
   USER_LOAD_ERROR,
 } from '../types/auth';
-import { setAlert } from './alerts';
+import { setAlert } from './alert';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const TOGGLE_AUTH_LOADING = 'TOGGLE_AUTH_LOADING';
@@ -39,7 +39,7 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: USER_LOADING_PROCESS})
 
     // Get token from localstorage
-    const token = localStorage.getItem('openmf_token')
+    const token = localStorage.getItem('blob_token')
 
     // add headers
     const config = {
@@ -93,17 +93,18 @@ export const loadUser = () => (dispatch, getState) => {
 
 
 // Action generator to handle login
-export const login = (email, password, callback) => async dispatch => {
+export const login = (email, password) => async dispatch => {
   // Login data
-  const loginData = {
-    email: email,
+  const loginData = new URLSearchParams({
+    username: email,
     password: password,
-  }
+    grant_type: 'password'
+  })
 
   // Config headers
   const config = {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
     }
   }
 
@@ -113,38 +114,21 @@ export const login = (email, password, callback) => async dispatch => {
 
   axios.post('/user/authenticate', loginData, config)
     .then((res) => {
-      if(res && res.status === 200){
-        dispatch({
-          type: LOGIN_SUCCESSFULL,
-          payload: {data: {auth_token: res.data.access_token}}
-        })
-        callback(false)
-        dispatch(loadUser())
-        dispatch(setAlert(res.data.message, 'success'))
-      }
+      const access_token = res.data.access_token
+      dispatch({type: LOGIN_SUCCESSFULL, payload: { data: { auth_token: access_token }}})
+      dispatch(setAlert('User Login Successfully', 'success'))
+      dispatch(loadUser())
     })
     .catch((err) => {
-      const res = err.response
-      if(res && (res || res.status === 404 || res.status === 406 || res.status === 409 || res.status === 401)){
-        dispatch({
-          type: LOGIN_FAILED,
-          payload: {data: res.data.message}
-        })
-        dispatch(setAlert(res.data.message))
-      }
-      else{
-        dispatch({
-          type: LOGIN_FAILED,
-          payload: {data: 'Something went wrong.'}
-        })
-        dispatch(setAlert('Something went wrong, please try again.'))
-      }
+      const msg = 'Invalid Email or password.'
+      dispatch({ type: LOGIN_FAILED, payload: { data: { error: msg }}})
+      dispatch(setAlert(msg, "warning"))
     })
 };
 
 
 // Action generator to handle signup
-export const signUp = (name, email, password, history, callback) => (dispatch) => {
+export const signUp = (name, email, password) => (dispatch) => {
   // Body for post request
   const body = {
     name: name,
@@ -163,17 +147,21 @@ export const signUp = (name, email, password, history, callback) => (dispatch) =
   axios.post('/user/create', body, config)
     .then((res) => {
       if(res && (res.status === 200 || res.status === 201)){
-        dispatch({type: SIGNUP_SUCCESSFULL})
-        callback(false)
-        history.push('/')
-        dispatch(setAlert(res.data.message, 'success'))
-        window.location.reload()
+        if(res && (res.data.status_code === 400 || res.data.status_code === 406 || res.data.status_code === 409 || res.data.status_code === 401)){
+          dispatch({type: SIGNUP_FAILED, payload: {data: res.data.detail}})
+          dispatch(setAlert(res.data.detail, 'warning'))
+        }
+        else {
+          dispatch({type: SIGNUP_SUCCESSFULL})
+          dispatch(setAlert(res.data.message, 'success'))
+          // window.location.reload()
+        }
       }
     })
     .catch((err) => {
       var res = err.response
       if(res && (res.status === 400 || res.status === 406 || res.status === 409 || res.status === 401)){
-        dispatch({type: SIGNUP_FAILED, payload: {data: res.data.message}})
+        dispatch({type: SIGNUP_FAILED, payload: {data: res.data.detail}})
       }
       else{
         dispatch({

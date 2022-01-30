@@ -3,6 +3,7 @@
 """
 
 import email
+from sqlalchemy import delete
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
@@ -24,15 +25,18 @@ async def create_new_user(user: CreateUser, db: Session = Depends(get_db)):
     if(old_user):
         return HTTPException(status_code=400, detail="Email already registered.")
     new_user = create_user(db, user)
-    return UserResponse(email=new_user.email)
+    return {
+        "message": "User Registered Successfully.",
+        "username": new_user.name
+    }
 
 
 
 @auth_router.get("/profile")
 def read_user(current_user: User = Depends(get_current_user)):
+    del current_user.password_hash
     return {
-        "email": current_user.email,
-        "name": current_user.name
+        "user": current_user
     }
 
 

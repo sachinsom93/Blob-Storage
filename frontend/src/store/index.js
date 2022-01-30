@@ -6,13 +6,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 
 import { authReducer } from './reducers/auth';
+import { alertReducer } from './reducers/alert';
 
 // Middlewares
 const middlewares = [thunk]
 
 // Root Reducer
 const rootReducer = combineReducers({
-    authReducer: authReducer
+    authReducer: authReducer,
+    alertReducer: alertReducer
 })
 
 

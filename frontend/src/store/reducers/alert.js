@@ -4,13 +4,13 @@
 
 
 // Import Dependecies
-import { SET_ALERT, REMOVE_ALERT } from '../actions/alerts';
+import { SET_ALERT, REMOVE_ALERT } from '../actions/alert';
 
 // Initial State
 const initialState = [];
 
 // Alert Reducer
-const reducer = (state = initialState, action) => {
+export const alertReducer = (state = initialState, action) => {
 
   // destructor Action
   const { type, payload } = action;
@@ -28,4 +28,3 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
