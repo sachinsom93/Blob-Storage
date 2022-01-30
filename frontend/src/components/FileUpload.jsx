@@ -10,7 +10,7 @@ function FileUpload() {
     return (
         <Form
             style={{
-                width: "30vw",
+                width: "50vw",
                 height: "35vh",
                 boxShadow: '10px 10px 50px 60px #f8f8f8',
                 borderRadius: '10px',

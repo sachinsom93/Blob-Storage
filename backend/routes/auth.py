@@ -54,4 +54,9 @@ async def authenticate_user(form_data: OAuth2PasswordRequestForm = Depends(), db
         raise HTTPException(status_code=500, detail=e)
 
 
+# @auth_router.post('/logout')
+# async def logout_user(current_user: User = Depends(get_current_user)):
+
+
+
 

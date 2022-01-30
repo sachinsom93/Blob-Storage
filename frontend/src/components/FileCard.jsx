@@ -3,6 +3,7 @@ import { Button, Card, Flex } from '@fluentui/react-northstar'
 import { EditIcon, DownloadIcon, CloseIcon } from '@fluentui/react-icons-northstar'
 import { useDispatch  } from 'react-redux';
 import { deleteFile, downloadFile, renameFile } from '../store/actions/file';
+import { setAlert } from '../store/actions/alert';
 
 const FileCard = ({file}) => {
 
@@ -20,6 +21,10 @@ const FileCard = ({file}) => {
     // Function to handle file renaming
     function handleEditClick(fileID) {
         const newName = window.prompt('Enter new file name.');
+        if(newName === '') {
+            dispatch(setAlert('Please enter valid filename.', 'warning'))
+            return;
+        }
         dispatch(renameFile(fileID, newName));
     }
 
