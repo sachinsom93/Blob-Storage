@@ -1,14 +1,19 @@
 import './App.css';
 import Auth from './pages/Auth';
-import { Provider, teamsTheme } from '@fluentui/react-northstar';
+import File from './pages/File';
 import AlertCom from './components/Alert';
+import { Routes, Route } from 'react-router-dom';
+import { Provider, teamsTheme } from '@fluentui/react-northstar';
 
 function App() {
   return (
     <Provider theme={teamsTheme}>
+      <AlertCom />
       <div className="App">
-        <AlertCom />
-        <Auth />
+        <Routes>
+          <Route exact path="/" element={<Auth />}/>
+          <Route exact path="/file" element={<File />} />
+        </Routes>
       </div>
     </Provider>
   );
