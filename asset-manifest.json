@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/blob-storage-server/static/css/main.073c9b0a.css",
-    "main.js": "/blob-storage-server/static/js/main.36b73e2e.js",
-    "static/js/787.cda612ba.chunk.js": "/blob-storage-server/static/js/787.cda612ba.chunk.js",
-    "static/media/logo.svg": "/blob-storage-server/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/blob-storage-server/index.html",
-    "main.073c9b0a.css.map": "/blob-storage-server/static/css/main.073c9b0a.css.map",
-    "main.36b73e2e.js.map": "/blob-storage-server/static/js/main.36b73e2e.js.map",
-    "787.cda612ba.chunk.js.map": "/blob-storage-server/static/js/787.cda612ba.chunk.js.map"
+    "main.css": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/css/main.073c9b0a.css",
+    "main.js": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/main.d104267a.js",
+    "static/js/787.cda612ba.chunk.js": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/787.cda612ba.chunk.js",
+    "static/media/logo.svg": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/index.html",
+    "main.073c9b0a.css.map": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/css/main.073c9b0a.css.map",
+    "main.d104267a.js.map": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/main.d104267a.js.map",
+    "787.cda612ba.chunk.js.map": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.36b73e2e.js"
+    "static/js/main.d104267a.js"
   ]
 }
