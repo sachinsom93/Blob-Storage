@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/css/main.073c9b0a.css",
-    "main.js": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/main.d104267a.js",
-    "static/js/787.cda612ba.chunk.js": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/787.cda612ba.chunk.js",
-    "static/media/logo.svg": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/index.html",
-    "main.073c9b0a.css.map": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/css/main.073c9b0a.css.map",
-    "main.d104267a.js.map": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/main.d104267a.js.map",
-    "787.cda612ba.chunk.js.map": "/Blob-Storage-Server-Cloudwiry-Hackathon-2022/static/js/787.cda612ba.chunk.js.map"
+    "main.css": "/static/css/main.5ee8068b.css",
+    "main.js": "/static/js/main.dc398d3d.js",
+    "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "index.html": "/index.html",
+    "main.5ee8068b.css.map": "/static/css/main.5ee8068b.css.map",
+    "main.dc398d3d.js.map": "/static/js/main.dc398d3d.js.map",
+    "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.d104267a.js"
+    "static/css/main.5ee8068b.css",
+    "static/js/main.dc398d3d.js"
   ]
 }
