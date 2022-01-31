@@ -1,3 +1,4 @@
+[![Github Pages Deploy](https://github.com/sachinsom93/Blob-Storage-Server-Cloudwiry-Hackathon-2022/actions/workflows/deploy.yml/badge.svg)](https://github.com/sachinsom93/Blob-Storage-Server-Cloudwiry-Hackathon-2022/actions/workflows/deploy.yml)
 # Blob-Storage-Server - Cloudwiry-Hackathon-2022
 
 ## Problem Statement
