@@ -1,4 +1,4 @@
-name: Github Pages Deploy
+name: Heroku Deploy
 
 on:
   push:
@@ -23,8 +23,13 @@ jobs:
        npm install
        npm run build
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@v4.2.2
+    - name: Deploy React App 🚀
+      uses: akhileshns/heroku-deploy@v3.12.12
       with:
-       branch: gh-pages # The branch the action should deploy to.
-       folder: frontend/build # The folder the action should deploy.
+       heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+       heroku_app_name: "blob-storage"
+       heroku_email: "sachinsom507@gmail.com"
+       appdir: "frontend/build"
+
+    - name: Display Success Message
+      run: echo "React App Deployed 🎉"
