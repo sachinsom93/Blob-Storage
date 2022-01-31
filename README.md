@@ -4,6 +4,7 @@
 
 # Blob-Storage-Server - Cloudwiry-Hackathon-2022
 
+## Live Application Link - [Deployed APP](https://blob-storage.herokuapp.com/)
 ## Problem Statement
 We’re in a digital economy where data is more valuable than ever. It’s the key to the smooth functionality of everything from the government to local companies. Without it, progress would halt.
 With data becoming enormous so is the requirement for better storage systems.
@@ -13,12 +14,24 @@ Therefore building a storage system and understanding the difficulties faced is 
 To trigger curiosity and the critical thinker within you, we at Cloudwiry have decided to formulate this into a hackathon.
 
 ### Requirements
-- [ ] User authentication and session management
-- [ ] Implementation of the blob storage server
-- [ ] Client application (CLI/ web based) for file upload, download, rename and delete
-- [ ] User based access control on who can access the files
-- [ ] Deploy the application
-- [ ] (optional - bonus points) - File compression
+- [x] User authentication and session management
+- [x] Implementation of the blob storage server
+- [x] Client application (CLI/ web based) for file upload, download, rename and delete
+- [x] User based access control on who can access the files
+- [x] Deploy the application
+- [x] (optional - bonus points) - File compression
+
+### Work flow Plan and Database Design
+
+![idea drawio](https://user-images.githubusercontent.com/64790109/151773274-6e09cb88-bb46-4d48-8e99-f4355894a12d.png)
+
+### Technologies Used
+- FastApi
+- React
+- Redux
+- fluentui/north-star
+- SqlAlchemy ORM
+- Github Action with Heruko
 
 ### Example Use Case / Application Flow
 
