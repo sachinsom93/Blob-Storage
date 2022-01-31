@@ -22,6 +22,7 @@ jobs:
        cd frontend
        npm install
        npm run build
+       cd ..
        
     - name: Update the latest git commit
       run: |
