@@ -1,5 +1,5 @@
 import axios from '../../axios';
-import { FILE_DELETE, FILE_DELETE_SUCCESS, FILE_DOWNLOAD, FILE_DOWNLOAD_ERROR, FILE_DOWNLOAD_SUCCESS, FILE_LOAD, FILE_LOAD_SUCCESS, FILE_RENAME, FILE_RENAME_SUCCESS, FILE_UPLOAD, FILE_UPLOAD_ERROR, FILE_UPLOAD_SUCCESS } from '../types/file';
+import { FILE_DELETE, FILE_DELETE_SUCCESS, FILE_DOWNLOAD, FILE_DOWNLOAD_ERROR, FILE_DOWNLOAD_SUCCESS, FILE_LOAD, FILE_LOAD_SUCCESS, FILE_RENAME, FILE_RENAME_SUCCESS, FILE_SHAREING, FILE_SHAREING_FAILED, FILE_SHAREING_SUCCESS, FILE_UPLOAD, FILE_UPLOAD_ERROR, FILE_UPLOAD_SUCCESS } from '../types/file';
 import { setAlert } from './alert';
 
 // Action generator to upload file
@@ -215,3 +215,47 @@ export const downloadFile = (fileID, FileName) => async dispatch => {
             dispatch(setAlert(msg, "warning"))
         })
   };
+
+
+  // Action generator to share file
+export const shareFile = (fileID, userEmail) => async dispatch => {
+
+    console.log(fileID, userEmail)
+    const data = {
+        "blob_id": fileID,
+        "user_email": userEmail
+    }
+
+    // Config headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+
+    // Get token from localstorage
+    const token = localStorage.getItem('blob_token')
+
+    // If token available add to headers
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    } else {
+        dispatch({ type: FILE_SHAREING_FAILED })
+        return
+    }
+
+    // Request the server
+    dispatch({ type: FILE_SHAREING })
+    axios.post(`/blob/share`, data, config)
+        .then((res) => {
+            dispatch({type: FILE_SHAREING_SUCCESS});
+            res ? dispatch(setAlert(res.data.message, 'success')) : dispatch(setAlert('File Shared Successfully', 'success'));
+        })
+        .catch((err) => {
+            const msg = typeof(err.response.data.detail) != 'object' &&  (err.response.data.detail) ? (err.response.data.detail) :'File sharing Failed.'
+            console.log(err)
+            dispatch({ type: FILE_SHAREING_FAILED, payload: { data: { error: msg }}})
+            dispatch(setAlert(msg, "warning"))
+        })
+  };
+

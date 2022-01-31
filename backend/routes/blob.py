@@ -121,7 +121,7 @@ async def delete_blob(file_id: int, current_user: User = Depends(get_current_use
         raise HTTPException(status_code=500, detail="Something Went Wrong.")
 
 
-@blob_router.post("share")
+@blob_router.post("/share")
 async def share_file(request: BlobShare, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
 
     # Get the blob object

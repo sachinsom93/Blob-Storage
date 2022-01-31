@@ -11,6 +11,9 @@ import {
     FILE_RENAME,
     FILE_RENAME_ERROR,
     FILE_RENAME_SUCCESS,
+    FILE_SHAREING,
+    FILE_SHAREING_FAILED,
+    FILE_SHAREING_SUCCESS,
     FILE_UPLOAD,
     FILE_UPLOAD_ERROR,
     FILE_UPLOAD_SUCCESS
@@ -31,6 +34,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
         case FILE_DELETE:
         case FILE_RENAME:
         case FILE_DOWNLOAD:
+        case FILE_SHAREING:
             return {
                 ...state,
                 isLoading: true
@@ -41,6 +45,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
         case FILE_DELETE_ERROR:
         case FILE_RENAME_ERROR:
         case FILE_DOWNLOAD_ERROR:
+        case FILE_SHAREING_FAILED:
             return {
                 ...state,
                 isLoading: false,
@@ -58,6 +63,7 @@ export const fileReducer = (state = initialState, {type, payload}) => {
         case FILE_RENAME_SUCCESS:
         case FILE_UPLOAD_SUCCESS:
         case FILE_DOWNLOAD_SUCCESS:
+        case FILE_SHAREING_SUCCESS:
             return {
                 ...state,
                 isLoading: false
