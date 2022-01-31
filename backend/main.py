@@ -23,6 +23,11 @@ user.Base.metadata.create_all(bind=engine)
 token_blacklist.Base.metadata.create_all(bind=engine)
 blob.Base.metadata.create_all(bind=engine)
 
+# health check api
+@app.get("/healthcheck")
+def healthCheck():
+    return { "healthcheck": "Everything OK!" }
+
 
 # Register Routes
 app.include_router(auth_router, prefix="/api/v1/user", tags=["User"])
