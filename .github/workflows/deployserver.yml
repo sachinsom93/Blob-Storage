@@ -1,0 +1,21 @@
+name: FastApi Deploy
+
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+
+  steps:
+   - name: Checkout Repo
+     uses: actions/checkout@v1
+
+   - name: Deploying to Heroku
+     uses: akhileshns/heroku-deploy@v3.12.12
+     with:
+      heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+      heroku_app_name: "blob-storage-server"
+      heroku_email: "sachinsom507@gmail.com"
