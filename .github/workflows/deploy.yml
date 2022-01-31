@@ -22,7 +22,13 @@ jobs:
        cd frontend
        npm install
        npm run build
-
+       
+    - name: Update the latest git commit
+      run: |
+       git config user.email "sachinsom507@github.com"
+       git config user.name "Sachin Som"
+       git add -A && git commit -m "Updated Code!"
+ 
     - name: Deploy React App 🚀
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
@@ -30,7 +36,7 @@ jobs:
        heroku_app_name: "blob-storage"
        heroku_email: "sachinsom507@gmail.com"
        appdir: "frontend/build"
-       remote_branch: "main"
+   
 
     - name: Display Success Message
       run: echo "React App Deployed 🎉"
