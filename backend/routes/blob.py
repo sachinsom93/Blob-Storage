@@ -3,13 +3,13 @@ import os
 from sqlalchemy.orm import Session
 from fastapi.responses import StreamingResponse
 from fastapi import UploadFile, APIRouter, Depends, HTTPException
-from backend.schema.blob import BlobRename
+from backend.schema.blob import BlobRename, BlobShare
 
 from backend.utils.get_db import get_db
 from backend.schema.user import User
 from backend.dependencies.auth import get_current_user
 from backend.utils.io_helper import read_from_file, write_to_file
-from backend.utils.user import get_user_by_email
+from backend.utils.user import get_user, get_user_by_email
 from backend.utils.blob import delete_blob_obj, get_blob, rename_blob_obj, save_blob
 
 
@@ -119,3 +119,38 @@ async def delete_blob(file_id: int, current_user: User = Depends(get_current_use
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Something Went Wrong.")
+
+
+@blob_router.post("share")
+async def share_file(request: BlobShare, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+
+    # Get the blob object
+    blob_obj = get_blob(current_user, request.blob_id)
+
+    # Get the user whom with share
+    friend_user = get_user_by_email(db, request.user_email)
+
+    # check if directory exists
+    if not os.path.exists(base + '/data/' + request.user_email):
+        os.makedirs(base + "/data/" + request.user_email)
+
+    # New Blob path
+    blob_path = f"{base}/data/{request.user_email}/{current_user.email}_{blob_obj.blob_name}"
+
+    # Get the content of the blob
+    blob_content = read_from_file(blob_obj.blob_url, current_user.key)
+
+    # Write encrypted data to file
+    if(write_to_file(blob_path, blob_content, friend_user.key)):
+
+        # Store file url to database
+        await save_blob(
+            db=db,
+            blob_url=blob_path,
+            blob_name=f"{current_user.email}_{blob_obj.blob_name}",
+            content_type=blob_obj.content_type,
+            user=friend_user
+        )
+        return { "success": True, "message": f"{blob_obj.blob_name} has been shared with {friend_user.email}." }
+
+    HTTPException(status_code=500, detail="Internal Server Error")

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 
 
 class Blob(BaseModel):
@@ -11,3 +11,8 @@ class Blob(BaseModel):
 class BlobRename(BaseModel):
     id: int
     new_blob_name: str
+
+
+class BlobShare(BaseModel):
+    blob_id: int
+    user_email: EmailStr
