@@ -22,8 +22,7 @@ To trigger curiosity and the critical thinker within you, we at Cloudwiry have d
 - [x] (optional - bonus points) - File compression
 
 ### Work flow Plan and Database Design
-
-![idea drawio](https://user-images.githubusercontent.com/64790109/151773274-6e09cb88-bb46-4d48-8e99-f4355894a12d.png)
+![idea drawio](https://user-images.githubusercontent.com/64790109/151802220-34b6b479-b100-427f-b829-0ea513bf6669.png)
 
 ### Technologies Used
 - FastApi ( Server Implementation )
