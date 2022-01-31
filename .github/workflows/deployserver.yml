@@ -13,6 +13,12 @@ jobs:
    - name: Checkout Repo
      uses: actions/checkout@v1
 
+   - name: Update Code
+     run: |
+      git config user.email "sachinsom@github.com"
+      git config user.name "sachin som"
+      git add -A && git commit -m "Update Code!"
+
    - name: Deploying to Heroku
      uses: akhileshns/heroku-deploy@v3.12.12
      with:
