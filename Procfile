@@ -1,1 +1,1 @@
-uvicorn backend.main:app --host=0.0.0.0 --workers 4
+web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker backend.main:app
