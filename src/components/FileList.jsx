@@ -10,10 +10,9 @@ function FileList() {
     return (
         <ul
             style={{
-                width: '25vw',
-                height: '100vh',
+                // width: '30vw',
+                // height: '100vh',
                 position: 'fixed',
-                right: '0',
                 top: '0',
                 overflowY: 'auto'
             }}

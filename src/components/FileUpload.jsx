@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import { Header, Form, FormInput, FormButton } from '@fluentui/react-northstar';
 import { uploadFile } from '../store/actions/file';
-import { useDispatch } from 'react-redux';
-function FileUpload() {
+import { useDispatch, useSelector } from 'react-redux';
 
-    const [file, setFile] = useState(null)
-    const dispatch = useDispatch()
+
+function FileUpload() {
+    const [file, setFile] = useState(null);
+    const dispatch = useDispatch();
+    const fileReducer = useSelector(state => state.fileReducer);
 
     return (
         <Form
             style={{
-                width: "50vw",
+                width: "40vw",
                 height: "35vh",
-                boxShadow: '10px 10px 50px 60px #f8f8f8',
+                boxShadow: '10px 10px 20px 60px #f8f8f8',
                 borderRadius: '10px',
                 marginRight: "10vw",
                 boxSizing: 'border-box'
@@ -29,7 +31,7 @@ function FileUpload() {
                 type="file"
                 onChange={(e) => setFile(e.target.files)}
             />
-            <FormButton content="Upload File" />
+            <FormButton content={(fileReducer && fileReducer.isLoading) ? "Uploading..." : "Upload File"} />
         </Form>
     )
 }
