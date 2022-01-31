@@ -30,6 +30,7 @@ jobs:
        heroku_app_name: "blob-storage"
        heroku_email: "sachinsom507@gmail.com"
        appdir: "frontend/build"
+       remote_branch: "main"
 
     - name: Display Success Message
       run: echo "React App Deployed 🎉"
