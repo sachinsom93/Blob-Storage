@@ -26,7 +26,7 @@ blob.Base.metadata.create_all(bind=engine)
 # health check api
 @app.get("/healthcheck")
 def healthCheck():
-    return { "healthcheck": "Everything OK!" }
+    return "ok"
 
 
 # Register Routes
