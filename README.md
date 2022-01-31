@@ -4,6 +4,7 @@
 
 # Blob-Storage-Server - Cloudwiry-Hackathon-2022
 
+## Live Application Link - [Deployed APP](https://blob-storage.herokuapp.com/)
 ## Problem Statement
 We’re in a digital economy where data is more valuable than ever. It’s the key to the smooth functionality of everything from the government to local companies. Without it, progress would halt.
 With data becoming enormous so is the requirement for better storage systems.
@@ -13,12 +14,80 @@ Therefore building a storage system and understanding the difficulties faced is 
 To trigger curiosity and the critical thinker within you, we at Cloudwiry have decided to formulate this into a hackathon.
 
 ### Requirements
-- [ ] User authentication and session management
-- [ ] Implementation of the blob storage server
-- [ ] Client application (CLI/ web based) for file upload, download, rename and delete
-- [ ] User based access control on who can access the files
-- [ ] Deploy the application
-- [ ] (optional - bonus points) - File compression
+- [x] User authentication and session management
+- [x] Implementation of the blob storage server
+- [x] Client application (CLI/ web based) for file upload, download, rename and delete
+- [x] User based access control on who can access the files
+- [x] Deploy the application
+- [x] (optional - bonus points) - File compression
+
+### Work flow Plan and Database Design
+
+![idea drawio](https://user-images.githubusercontent.com/64790109/151773274-6e09cb88-bb46-4d48-8e99-f4355894a12d.png)
+
+### Technologies Used
+- FastApi ( Server Implementation )
+- React ( UI Implementation )
+- Redux ( State Management )
+- fluentui/north-star ( UI Components )
+- SqlAlchemy ORM ( Database ORM )
+- Github Action with Heruko ( Continous Deployment )
+
+
+### Project Setup
+#### Clone The Project
+1. Clone the Project. Following Command Can be used for this purpose -
+```
+$ git clone https://github.com/sachinsom93/Blob-Storage-Server-Cloudwiry-Hackathon-2022.git
+```
+2. Change the present directory to cloned project directory.
+```
+$ cd Blob-Storage-Server-Cloudwiry-Hackathon-2022
+```
+
+#### Backend Setup
+1. Fork, Clone and go inside project directory.
+2. **Important Step Change** the `.sampleenv` to `.env`.
+3. Create and Enable `virtualenv`.
+```python
+# Create virtual env
+$ virtualenv venv
+
+# activate venv (For Windows)
+$ venv\Scripts\activate
+```
+4. Install the project dependencies. Use the following command.
+```
+$ pip install -r requirements.txt
+```
+5. Run the Server.
+```
+$ uvicorn backend.main:app --reload
+```
+
+#### Frontend Setup
+1. Fork, Clone and go inside project directory.
+2. Go inside `frontend` directory.
+```
+$ cd frontend
+```
+3. Install npm dependencies.
+```
+(frontend) $ npm install
+```
+4. Start react server.
+```
+(frontend) $ npm start
+```
+
+### Project Features
+1. User can create accound and login into account.
+2. User can upload files.
+3. User can rename, delete and download any file.
+4. User can share files with other users.
+5. Other users can also rename, download the shared file.
+6. User can logout.
+
 
 ### Example Use Case / Application Flow
 
@@ -37,5 +106,3 @@ To trigger curiosity and the critical thinker within you, we at Cloudwiry have d
 - Database design
 - Originality & creativity
 - Working & Demo of the application
-
-
