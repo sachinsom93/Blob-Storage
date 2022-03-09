@@ -4,7 +4,6 @@
 
 # Blob-Storage-Server - Cloudwiry-Hackathon-2022
 
-## Live Application Link - [Deployed APP](https://blob-storage.herokuapp.com/)
 ## Problem Statement
 We’re in a digital economy where data is more valuable than ever. It’s the key to the smooth functionality of everything from the government to local companies. Without it, progress would halt.
 With data becoming enormous so is the requirement for better storage systems.
